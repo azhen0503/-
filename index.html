@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>便利店选品标注系统</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell" id="appShell">
+      <aside class="sidebar" id="sidebar">
+        <div class="brand">
+          <div class="brand-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M4 10.5 5.4 5h13.2l1.4 5.5" />
+              <path d="M5 10.5v8.2c0 .7.6 1.3 1.3 1.3h11.4c.7 0 1.3-.6 1.3-1.3v-8.2" />
+              <path d="M8 20v-6h4v6" />
+              <path d="M15 15h2" />
+              <path d="M4 10.5h16" />
+            </svg>
+          </div>
+          <div class="brand-copy">
+            <h1>便利店选品标注系统</h1>
+            <p>智能选品，快速上新</p>
+          </div>
+          <button class="icon-button brand-collapse" id="brandCollapse" title="收起菜单">‹‹</button>
+        </div>
+
+        <nav class="nav">
+          <button class="nav-link" data-view="dashboard">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 11.5 12 5l8 6.5" /><path d="M6.5 10.5V19h11v-8.5" /><path d="M10 19v-5h4v5" /></svg>
+            </span>
+            <span class="nav-text">首页概览</span>
+          </button>
+
+          <section class="nav-group open" data-group>
+            <button class="nav-title" data-toggle-group>
+              <span><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 7.5 12 4l6 3.5v7L12 18l-6-3.5z" /><path d="M6 7.5 12 11l6-3.5" /><path d="M12 11v7" /></svg></span><span class="nav-text">商品管理</span></span>
+              <span class="chevron">⌃</span>
+            </button>
+            <div class="nav-children">
+              <button class="nav-link active" data-action="show-list"><span class="nav-text">商品列表</span></button>
+              <button class="nav-link" data-action="open-add"><span class="nav-text">添加商品</span></button>
+              <button class="nav-link" data-action="open-import"><span class="nav-text">导入商品</span></button>
+            </div>
+          </section>
+
+          <section class="nav-group open" data-group>
+            <button class="nav-title" data-toggle-group>
+              <span><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h8l6 6v8H5z" /><path d="M13 5v6h6" /><path d="M8 15h6" /><path d="M8 18h4" /></svg></span><span class="nav-text">等级标注</span></span>
+              <span class="chevron">⌃</span>
+            </button>
+            <div class="nav-children">
+              <button class="nav-link" data-panel="levels"><span class="nav-text">等级说明</span></button>
+              <button class="nav-link" data-action="stats-focus"><span class="nav-text">标注统计</span></button>
+            </div>
+          </section>
+
+          <section class="nav-group open" data-group>
+            <button class="nav-title" data-toggle-group>
+              <span><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 7h12" /><path d="M8 12h12" /><path d="M8 17h12" /><path d="M4 7l1 1 2-2" /><path d="M4 12l1 1 2-2" /><path d="M4 17l1 1 2-2" /></svg></span><span class="nav-text">选品管理</span></span>
+              <span class="chevron">⌃</span>
+            </button>
+            <div class="nav-children">
+              <button class="nav-link" data-filter-selected="true"><span class="nav-text">已选商品</span></button>
+              <button class="nav-link" data-action="export-selected"><span class="nav-text">选品导出</span></button>
+            </div>
+          </section>
+
+          <section class="nav-group open" data-group>
+            <button class="nav-title" data-toggle-group>
+              <span><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 8.3a3.7 3.7 0 1 0 0 7.4 3.7 3.7 0 0 0 0-7.4z" /><path d="M19 12a6.8 6.8 0 0 0-.1-1.1l2-1.5-2-3.4-2.4 1a7.5 7.5 0 0 0-1.9-1.1L14.2 3h-4.4l-.4 2.9A7.5 7.5 0 0 0 7.5 7L5.1 6 3.1 9.4l2 1.5A6.8 6.8 0 0 0 5 12c0 .4 0 .8.1 1.1l-2 1.5 2 3.4 2.4-1a7.5 7.5 0 0 0 1.9 1.1l.4 2.9h4.4l.4-2.9a7.5 7.5 0 0 0 1.9-1.1l2.4 1 2-3.4-2-1.5c.1-.3.1-.7.1-1.1z" /></svg></span><span class="nav-text">系统设置</span></span>
+              <span class="chevron">⌃</span>
+            </button>
+            <div class="nav-children">
+              <button class="nav-link" data-action="open-image-settings"><span class="nav-text">图片设置</span></button>
+              <button class="nav-link" data-action="open-system-settings"><span class="nav-text">系统配置</span></button>
+            </div>
+          </section>
+        </nav>
+
+        <div class="tip-card">
+          <strong>选品小贴士</strong>
+          <p>合理的商品等级标注有助于提升门店选品效率和顾客满意度。</p>
+          <button data-action="stats-focus">了解更多 →</button>
+        </div>
+
+        <button class="collapse-bottom" id="collapseBottom">‹‹ <span>收起菜单</span></button>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="mobile-menu icon-button" id="mobileMenu" title="菜单">☰</button>
+          </div>
+          <div class="global-search">
+            <span>⌕</span>
+            <input id="globalSearch" type="search" placeholder="搜索商品名称、品牌、条码" />
+          </div>
+          <div class="topbar-actions">
+            <button class="bell" title="消息通知">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 1 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" /><path d="M10 21h4" /></svg>
+              <span>12</span>
+            </button>
+            <button class="account-settings" id="accountButton" title="账号设置" type="button">
+              <span class="avatar" aria-hidden="true"></span>
+              <span class="user-name" id="accountName">张店长</span>
+              <span class="settings-mark" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z" /><path d="M19 12c0-.4 0-.8-.1-1.1l1.6-1.2-1.6-2.8-1.9.8a6.4 6.4 0 0 0-1.6-.9L15 4.5H9l-.4 2.3c-.6.2-1.1.5-1.6.9l-1.9-.8-1.6 2.8 1.6 1.2C5 11.2 5 11.6 5 12s0 .8.1 1.1l-1.6 1.2 1.6 2.8 1.9-.8c.5.4 1 .7 1.6.9L9 19.5h6l.4-2.3c.6-.2 1.1-.5 1.6-.9l1.9.8 1.6-2.8-1.6-1.2c.1-.3.1-.7.1-1.1z" /></svg>
+              </span>
+            </button>
+            <div class="account-menu" id="accountMenu" aria-hidden="true">
+              <div class="account-menu-head">
+                <span class="account-badge">1</span>
+                <div>
+                  <strong id="accountMenuName">张店长</strong>
+                  <small id="accountMenuEmail">1739205980@qq.com</small>
+                </div>
+              </div>
+              <button type="button" data-account-action="profile">
+                <span>♟</span>
+                <span>个人设置</span>
+              </button>
+              <button type="button" data-account-action="logout">
+                <span>↪</span>
+                <span>退出账号</span>
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <section class="content">
+          <div class="page-heading">
+            <div>
+              <h2>商品管理 <span id="totalBadge">1,289</span> <small>共 <strong id="totalCount">1,289</strong> 个商品</small></h2>
+            </div>
+            <div class="heading-actions">
+              <button class="secondary" id="batchEditBtn">✎ 批量编辑</button>
+              <button class="secondary danger-lite" id="batchDeleteBtn">▣ 批量删除</button>
+              <button class="primary" id="addProductBtn">＋ 添加商品</button>
+            </div>
+          </div>
+
+          <div class="main-grid">
+            <aside class="insight-column">
+              <section class="info-card" id="levelsPanel">
+                <h3>▽ 商品等级说明</h3>
+                <div class="level-list" id="levelList"></div>
+              </section>
+
+              <section class="info-card" id="statsPanel">
+                <h3>▽ 快速统计</h3>
+                <div class="donut-wrap">
+                  <div class="donut" id="donutChart">
+                    <span><strong id="donutTotal">1,289</strong><small>总商品数</small></span>
+                  </div>
+                </div>
+                <div class="legend" id="legendList"></div>
+              </section>
+            </aside>
+
+            <section class="product-panel">
+              <div class="filters">
+                <label class="search-field">
+                  <input id="productSearch" type="search" placeholder="输入商品名称自动获取信息" />
+                  <span>⌕</span>
+                </label>
+                <label>
+                  <span>商品等级</span>
+                  <select id="levelFilter">
+                    <option value="">全部等级</option>
+                  </select>
+                </label>
+                <label>
+                  <span>商品品类</span>
+                  <select id="categoryFilter">
+                    <option value="">全部品类</option>
+                  </select>
+                </label>
+                <label>
+                  <span>商品品牌</span>
+                  <select id="brandFilter">
+                    <option value="">全部品牌</option>
+                  </select>
+                </label>
+                <button class="primary" id="searchBtn">⌕ 搜索</button>
+                <button class="secondary" id="resetBtn">重置</button>
+              </div>
+
+              <div class="table-toolbar">
+                <div class="tabs">
+                  <button class="active" data-tab="all">全部商品 <span id="allCount">(0)</span></button>
+                  <button data-tab="selected">已选商品 <span id="selectedCount">(0)</span></button>
+                  <button data-tab="unselected">未选商品 <span id="unselectedCount">(0)</span></button>
+                </div>
+                <div class="select-tools">
+                  <label class="checkbox-line">
+                    <input type="checkbox" id="selectPage" />
+                    <span>全选/取消全选（当前页）</span>
+                  </label>
+                  <button class="primary" id="exportBtn">⇩ 生成采购单</button>
+                </div>
+              </div>
+
+              <div class="table-card">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>商品信息</th>
+                      <th><button class="sort-head" type="button" data-sort="category">商品分类 <span data-sort-icon="category"></span></button></th>
+                      <th><button class="sort-head" type="button" data-sort="level">商品等级 <span data-sort-icon="level"></span></button></th>
+                      <th><button class="sort-head" type="button" data-sort="salePrice">售价 <span data-sort-icon="salePrice"></span></button></th>
+                      <th><button class="sort-head" type="button" data-sort="costPrice">进货价 <span data-sort-icon="costPrice"></span></button></th>
+                      <th>操作</th>
+                      <th>选择</th>
+                    </tr>
+                  </thead>
+                  <tbody id="productRows"></tbody>
+                </table>
+                <div class="empty-state" id="emptyState">没有匹配的商品，请调整筛选条件。</div>
+              </div>
+
+              <footer class="pagination">
+                <span>共 <strong id="visibleCount">0</strong> 条记录</span>
+                <div class="pager" id="pager"></div>
+                <label class="page-size-control">
+                  <span>每页条数：</span>
+                  <select id="pageSize">
+                    <option value="10">10</option>
+                    <option value="15" selected>15</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                  </select>
+                </label>
+              </footer>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal-backdrop" id="productModal" aria-hidden="true">
+      <form class="modal" id="productForm">
+        <div class="modal-header">
+          <h3 id="modalTitle">添加商品</h3>
+          <button type="button" class="icon-button" data-close-modal>×</button>
+        </div>
+        <div class="form-grid">
+          <label>商品名称<input name="name" required /></label>
+          <label>品牌<input name="brand" required /></label>
+          <label>条码<input name="barcode" required /></label>
+          <label>一级分类<input name="category" required /></label>
+          <label>二级分类<input name="subCategory" required /></label>
+          <label>商品等级<select name="level" required></select></label>
+          <label>售价<input name="salePrice" type="number" min="0" step="0.01" required /></label>
+          <label>进货价<input name="costPrice" type="number" min="0" step="0.01" required /></label>
+          <label>图片地址<input name="image" placeholder="可填图片 URL 或留空" /></label>
+          <label>更新时间<input name="updatedAt" type="date" required /></label>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="secondary" data-close-modal>取消</button>
+          <button type="submit" class="primary">保存商品</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-backdrop" id="imageSettingsModal" aria-hidden="true">
+      <section class="modal wide-modal image-modal">
+        <div class="modal-header">
+          <h3>图片设置</h3>
+          <button type="button" class="icon-button" data-close-modal>×</button>
+        </div>
+        <div class="image-settings">
+          <div class="drop-zone" id="dropZone">
+            <input id="imageUpload" type="file" accept="image/*" multiple />
+            <div class="drop-icon">⇧</div>
+            <strong>拖拽商品图片到这里上传</strong>
+            <span>支持 JPG、PNG、WebP，可一次上传多张，系统会按文件名匹配商品名称或品牌。</span>
+            <button type="button" class="secondary" id="chooseImagesBtn">选择图片</button>
+          </div>
+          <div class="image-actions">
+            <div>
+              <strong>自动网络更新图片</strong>
+              <p>可选择自动模式批量生成 Bing 缩略图，也可以手动上传或粘贴真实图片地址。自动图片失败时会使用系统占位图。</p>
+            </div>
+            <div class="image-mode-tools">
+              <label>
+                <span>更新方式</span>
+                <select id="imageUpdateMode">
+                  <option value="auto">自动搜索更新</option>
+                  <option value="manual">手动上传/粘贴</option>
+                </select>
+              </label>
+              <button type="button" class="primary" id="autoImageBtn">开始更新图片</button>
+            </div>
+          </div>
+          <div class="image-preview-list" id="imagePreviewList"></div>
+        </div>
+      </section>
+    </div>
+
+    <div class="modal-backdrop" id="purchaseModal" aria-hidden="true">
+      <section class="modal wide-modal">
+        <div class="modal-header">
+          <h3>采购单导出</h3>
+          <button type="button" class="icon-button" data-close-modal>×</button>
+        </div>
+        <div class="purchase-body">
+          <div class="purchase-meta">
+            <label>供应商<input id="supplierName" value="门店默认供应商" /></label>
+            <label>采购人<input id="buyerName" value="张店长" /></label>
+            <label>采购日期<input id="purchaseDate" type="date" /></label>
+          </div>
+          <div class="purchase-table-wrap">
+            <table class="purchase-table">
+              <thead>
+                <tr>
+                  <th>图片</th>
+                  <th>商品信息</th>
+                  <th>等级</th>
+                  <th>进货价</th>
+                  <th>数量</th>
+                  <th>小计</th>
+                </tr>
+              </thead>
+              <tbody id="purchaseRows"></tbody>
+            </table>
+          </div>
+          <div class="export-text-panel">
+            <div>
+              <strong>xlsx 文本内容</strong>
+              <span>用于核对采购单内容，下载的 xlsx 会把系统里的图片嵌入文件。</span>
+            </div>
+            <textarea id="xlsxText" readonly></textarea>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="secondary" id="copyXlsxTextBtn">复制文本</button>
+          <button type="button" class="primary" id="downloadXlsxTextBtn">下载 xlsx 采购单</button>
+        </div>
+      </section>
+    </div>
+
+    <div class="modal-backdrop" id="accountModal" aria-hidden="true">
+      <form class="modal account-modal" id="accountForm">
+        <div class="modal-header">
+          <h3 id="accountModalTitle">个人设置</h3>
+          <button type="button" class="icon-button" data-close-modal>×</button>
+        </div>
+        <div class="account-tabs">
+          <button type="button" class="active" data-account-tab="profile">个人设置</button>
+        </div>
+        <div class="account-panel active" data-account-panel="profile">
+          <div class="profile-head">
+            <span class="account-badge large">1</span>
+            <div>
+              <strong id="profileDisplayName">张店长</strong>
+              <span id="profileDisplayEmail">1739205980@qq.com</span>
+            </div>
+          </div>
+          <div class="form-grid">
+            <label>显示名称<input name="displayName" required /></label>
+            <label>邮箱<input name="email" type="email" required /></label>
+            <label>手机号<input name="phone" /></label>
+            <label>门店名称<input name="storeName" /></label>
+            <label>角色<select name="role"><option>店长</option><option>采购员</option><option>管理员</option></select></label>
+            <label>语言<select name="language"><option>简体中文</option><option>English</option></select></label>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="secondary" data-close-modal>取消</button>
+          <button type="submit" class="primary">保存设置</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="toast" id="toast"></div>
+    <script src="./app.js"></script>
+  </body>
+</html>
